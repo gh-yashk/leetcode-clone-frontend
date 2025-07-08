@@ -1,5 +1,7 @@
-import { LogOut, Trash2 } from "lucide-react";
-import { useState } from "react";
+import { getLoginUrl } from "@/lib/api/users";
+import { useAuthStore } from "@/store/useAuthStore";
+import { LogOut, Trash2, UserRound } from "lucide-react";
+import { useEffect } from "react";
 import githubLogo from "../assets/github_logo.svg";
 import leetCode2Logo from "../assets/leetcode2.svg";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
@@ -8,20 +10,24 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel,
 
 export default function ProfileAndLogin() {
 
-    const [tempFlag] = useState(true);
+    const { user, fetchUser, logout } = useAuthStore();
+
+    useEffect(() => {
+        fetchUser();
+    }, [fetchUser]);
 
     return (
         <>
             <div>
                 {
-                    tempFlag ?
+                    user ?
                         <>
                             <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
                                     <div>
                                         <Avatar className="h-8 w-8 cursor-pointer">
-                                            <AvatarImage src="https://github.com/shadcn.png" />
-                                            <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                                            <AvatarImage src={user.avatar} />
+                                            <AvatarFallback className="rounded-lg"><UserRound color="#c9c9c9" /></AvatarFallback>
                                         </Avatar>
                                     </div>
                                 </DropdownMenuTrigger>
@@ -34,12 +40,12 @@ export default function ProfileAndLogin() {
                                     <DropdownMenuLabel className="p-0 font-normal">
                                         <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                                             <Avatar className="h-8 w-8 rounded-lg">
-                                                <AvatarImage src="https://github.com/shadcn.png" />
-                                                <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                                                <AvatarImage src={user.avatar} />
+                                                <AvatarFallback className="rounded-lg"><UserRound color="#c9c9c9" /></AvatarFallback>
                                             </Avatar>
                                             <div className="grid flex-1 text-left text-sm leading-tight">
-                                                <span className="truncate font-medium">gh-yashk</span>
-                                                <span className="truncate text-xs">yashk.n6+gh@gmail.com</span>
+                                                <span className="truncate font-medium">{user.username}</span>
+                                                <span className="truncate text-xs">{user.email}</span>
                                             </div>
                                         </div>
                                     </DropdownMenuLabel>
@@ -49,7 +55,10 @@ export default function ProfileAndLogin() {
                                         Delete Account
                                     </DropdownMenuItem>
                                     <DropdownMenuSeparator className="bg-[#424242]" />
-                                    <DropdownMenuItem className="hover:!bg-[#2f2f2f] !text-[#f5f5f5] cursor-pointer">
+                                    <DropdownMenuItem
+                                        className="hover:!bg-[#2f2f2f] !text-[#f5f5f5] cursor-pointer"
+                                        onClick={logout}
+                                    >
                                         <LogOut />
                                         Log out
                                     </DropdownMenuItem>
@@ -70,7 +79,7 @@ export default function ProfileAndLogin() {
                                         src={leetCode2Logo} alt="LeetCode Logo"
                                     />
                                     <a
-                                        href="/"
+                                        href={getLoginUrl()}
                                         className="bg-[#151515] py-2 mb-4 rounded-sm flex items-center justify-center gap-2 hover:bg-[#1c1c1c] border border-[#424242] cursor-pointer"
                                     >
                                         <img src={githubLogo} alt="Github Logo" className="h-5 w-5" />
