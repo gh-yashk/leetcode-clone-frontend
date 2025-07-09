@@ -13,6 +13,8 @@ export default function Home() {
                     </a>
                     <ProfileAndLogin />
                 </nav>
+
+                {/* separator */}
                 <div className="bg-[#333] h-[1px]" />
 
             </div>
