@@ -10,7 +10,7 @@ export default function App() {
                 <Route path="/" element={<Navigate to="/problemset/" />} />
                 <Route path="/problems" element={<Navigate to="/problemset/" />} />
                 <Route path="/problemset/" element={<Home />} />
-                <Route path="/problems/slug" element={<ProblemDetail />} />
+                <Route path="/problems/:slug" element={<ProblemDetail />} />
                 <Route path="*" element={<NotFound />} />
             </Routes>
         </>

@@ -1,10 +1,11 @@
 import ProfileAndLogin from "@/components/ProfileAndLogin";
 import leetcodeLogo from "../assets/leetcode.svg";
+import ProblemList from "@/components/ProblemList";
 
 export default function Home() {
     return (
         <>
-            <div className=" mx-auto">
+            <div className="max-w-3xl mx-auto">
 
                 {/* navigation bar */}
                 <nav className="flex items-center justify-between my-6 px-12">
@@ -16,6 +17,10 @@ export default function Home() {
 
                 {/* separator */}
                 <div className="bg-[#333] h-[1px]" />
+
+                <div>
+                    <ProblemList />
+                </div>
 
             </div>
         </>
