@@ -1,4 +1,5 @@
 import { fetchCurrentUser, logoutUser, type CurrentUser, } from "@/lib/api/users";
+import { toast } from "sonner";
 import { create } from "zustand";
 
 interface AuthState {
@@ -19,7 +20,15 @@ export const useAuthStore = create<AuthState>((set) => ({
     },
 
     logout: async () => {
-        logoutUser();
         set({ user: null });
+        toast.success("Signed out. See you soon!", {
+            style: {
+                background: "#333",
+                color: "#f5f5f5",
+            },
+        });
+        setTimeout(() => {
+            logoutUser();
+        }, 4000);
     },
 }));
