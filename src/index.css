@@ -9,6 +9,20 @@ body {
   font-weight: 500;
 }
 
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #444;
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+/* Firefox support */
+.custom-scrollbar {
+  scrollbar-color: #444 transparent;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {

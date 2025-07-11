@@ -1,13 +1,8 @@
 export type Difficulty = 'EASY' | 'MEDIUM' | 'HARD';
 
 export interface Language {
-    id: string;
+    id: number;
     name: string;
-}
-
-export interface TestCase {
-    input: string;
-    expectedOutput: string;
 }
 
 export interface StarterCodeMap {
@@ -25,14 +20,12 @@ export interface ProblemDetail extends ProblemSummary {
     description: string;
     starterCode: string;
     languages: string;
-    testCases: string;
 }
 
 export interface ParsedProblemDetail extends ProblemSummary {
     description: string;
     starterCode: StarterCodeMap;
     languages: Language[];
-    testCases: TestCase[];
 }
 
 export async function fetchAllProblems(): Promise<ProblemSummary[]> {
@@ -57,6 +50,5 @@ export async function fetchProblemParsed(slug: string): Promise<ParsedProblemDet
         ...raw,
         starterCode: JSON.parse(raw.starterCode),
         languages: JSON.parse(raw.languages),
-        testCases: JSON.parse(raw.testCases),
     };
 }
